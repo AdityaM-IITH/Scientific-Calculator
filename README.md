@@ -10,12 +10,15 @@ The project separates user interface logic from computation logic and connects t
 
 ## Project Structure
 
+```text
 Scientific-Calculator/
-├── frontend/ # Flutter UI
-├── backend/ # C backend (Linux/Termux)
-│ └── main.c
+├── frontend/          # Flutter UI
+├── backend/           # C backend (Linux/Termux)
+│   └── main.c
 ├── README.md
 └── .gitignore
+```
+
 
 ---
 
