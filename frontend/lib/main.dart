@@ -22,7 +22,6 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
-
   final String title;
 
   @override
@@ -33,12 +32,19 @@ class _MyHomePageState extends State<MyHomePage> {
   String display = "0";
   bool showTrig = false;
 
+  final TextEditingController ipController = TextEditingController(
+    text: "127.0.0.1",
+  );
+
+  String backendStatus = "Backend: 127.0.0.1";
+
   void addChar(String c) {
     setState(() {
-      bool isOp(String x) => x == '+' || x == '-' || x == '*' || x == '/'||x=='^';
+      bool isOp(String x) =>
+          x == '+' || x == '-' || x == '*' || x == '/' || x == '^';
 
       final lastChar = display.isNotEmpty ? display[display.length - 1] : '';
-      
+
       if (display == "0") {
         if (c == '-') {
           display = c;
@@ -48,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
         display = c;
         return;
       }
-      
+
       if (isOp(lastChar) && isOp(c)) {
         display = display.substring(0, display.length - 1) + c;
         return;
@@ -71,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Expanded(
       flex: flex,
       child: Container(
-        margin: const EdgeInsets.all(6), 
+        margin: const EdgeInsets.all(6),
         child: ElevatedButton(
           onPressed: () {
             if (c == "⌫") {
@@ -221,7 +227,54 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ),
-
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: ipController,
+                      style: const TextStyle(color: Colors.white),
+                      decoration: InputDecoration(
+                        hintText: "Backend IP (127.0.0.1 or LAN)",
+                        hintStyle: const TextStyle(color: Colors.grey),
+                        filled: true,
+                        fillColor: const Color.fromARGB(255, 40, 40, 40),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide.none,
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 10,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  ElevatedButton(
+                    onPressed: () {
+                      setServerIp(ipController.text);
+                      setState(() {
+                        backendStatus = "Backend: ${ipController.text.trim()}";
+                      });
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.grey,
+                      foregroundColor: Colors.black,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    child: const Text("Set"),
+                  ),
+                ],
+              ),
+            ),
+            Text(
+              backendStatus,
+              style: const TextStyle(color: Colors.grey, fontSize: 14),
+            ),
             IconButton(
               onPressed: () {
                 setState(() {
@@ -230,7 +283,6 @@ class _MyHomePageState extends State<MyHomePage> {
               },
               icon: const Icon(Icons.functions, color: Colors.grey),
             ),
-
             trigRow(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -290,7 +342,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         children: [
                           buildKey("0", bg: darkGrey),
                           buildKey(".", bg: lightGrey),
-                          buildKey("=", flex: 2, bg: green), 
+                          buildKey("=", flex: 2, bg: green),
                         ],
                       ),
                     ),
