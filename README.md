@@ -1,16 +1,42 @@
-# calc_day1
+# Scientific Calculator
 
-A new Flutter project.
+A scientific calculator application consisting of:
+- a Flutter-based frontend (UI), and
+- a C-based backend computation engine developed and tested in Linux/Termux.
 
-## Getting Started
+The project separates user interface logic from computation logic and connects them using socket-based communication.
 
-This project is a starting point for a Flutter application.
+---
 
-A few resources to get you started if this is your first Flutter project:
+## Project Structure
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+```text
+Scientific-Calculator/
+├── frontend/          # Flutter UI
+├── backend/           # C backend (Linux/Termux)
+│   └── main.c
+├── README.md
+└── .gitignore
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+---
+
+## Frontend (Flutter UI)
+
+The frontend handles:
+- Calculator layout and UI
+- User input handling
+- Displaying results
+- Sending expressions to the backend
+
+### Tech Stack
+- Flutter
+- Dart
+
+### Run Frontend
+
+```bash
+cd frontend
+flutter pub get
+flutter run
